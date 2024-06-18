@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ds1yiop1n60g0"]
+
+[ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
+[ext_resource type="Texture2D" uid="uid://1x28hag1bm1j" path="res://assests/BasicGround.png" id="2_d3ugv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yaq05"]
+albedo_texture = ExtResource("2_d3ugv")
+uv1_offset = Vector3(0, -0.18, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ifc8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ffork"]
+material = SubResource("StandardMaterial3D_0ifc8")
+size = Vector3(100, 1, 100)
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_hnb7c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90344, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(0.803161, -0.349532, 0.482452, 0, 0.809806, 0.586698, -0.595762, -0.471212, 0.650405, 5.65122, 6.87855, 7.44169)
+projection = 1
+size = 10.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+shape = SubResource("BoxShape3D_qvwio")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_yaq05")
+mesh = SubResource("BoxMesh_ffork")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.930092, 0.153659, 0.333644, -0.367116, 0.419659, 0.830128, -0.0124595, -0.894581, 0.446732, 0, 8.11698, 0)
+light_energy = 1.914
+directional_shadow_mode = 0
