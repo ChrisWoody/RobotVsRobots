@@ -21,7 +21,7 @@ size = Vector3(100, 1, 100)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90344, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(0.803161, -0.349532, 0.482452, 0, 0.809806, 0.586698, -0.595762, -0.471212, 0.650405, 5.65122, 6.87855, 7.44169)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707106, 0.707107, -0.707107, -0.5, 0.5, 6.5, 9.419, 6.554)
 projection = 1
 size = 10.0
 
