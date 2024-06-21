@@ -1,13 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds1yiop1n60g0"]
+[gd_scene load_steps=13 format=3 uid="uid://ds1yiop1n60g0"]
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
-[ext_resource type="Texture2D" uid="uid://1x28hag1bm1j" path="res://assests/BasicGround.png" id="2_d3ugv"]
+[ext_resource type="Texture2D" uid="uid://di8l8j83rpxk6" path="res://assests/SciFiFloor/Sci-fi_Floor_001_basecolor.jpg" id="2_kxm4w"]
+[ext_resource type="Texture2D" uid="uid://kbr8rr8ucrxe" path="res://assests/SciFiFloor/Sci-fi_Floor_001_ambientOcclusion.jpg" id="3_kk0dk"]
+[ext_resource type="Texture2D" uid="uid://dgmbwvd1mspk6" path="res://assests/SciFiFloor/Sci-fi_Floor_001_emission.jpg" id="4_nqdan"]
+[ext_resource type="Texture2D" uid="uid://doavfpo6h317d" path="res://assests/SciFiFloor/Sci-fi_Floor_001_height.png" id="5_pg5cd"]
+[ext_resource type="Texture2D" uid="uid://dqphswvirsx6t" path="res://assests/SciFiFloor/Sci-fi_Floor_001_metallic.jpg" id="6_ic1xj"]
+[ext_resource type="Texture2D" uid="uid://b48fx73cy3fen" path="res://assests/SciFiFloor/Sci-fi_Floor_001_normal.jpg" id="7_4kygc"]
+[ext_resource type="Texture2D" uid="uid://kyx8ho2cdbdf" path="res://assests/SciFiFloor/Sci-fi_Floor_001_roughness.jpg" id="8_ju72g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yaq05"]
-albedo_texture = ExtResource("2_d3ugv")
-uv1_offset = Vector3(0, -0.18, 0)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5qfs"]
+albedo_texture = ExtResource("2_kxm4w")
+metallic = 1.0
+metallic_texture = ExtResource("6_ic1xj")
+roughness_texture = ExtResource("8_ju72g")
+emission_enabled = true
+emission_texture = ExtResource("4_nqdan")
+normal_enabled = true
+normal_texture = ExtResource("7_4kygc")
+ao_enabled = true
+ao_texture = ExtResource("3_kk0dk")
+heightmap_enabled = true
+heightmap_texture = ExtResource("5_pg5cd")
+uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ifc8"]
 
@@ -33,7 +50,7 @@ shape = SubResource("BoxShape3D_qvwio")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = SubResource("StandardMaterial3D_yaq05")
+material_override = SubResource("StandardMaterial3D_q5qfs")
 mesh = SubResource("BoxMesh_ffork")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
