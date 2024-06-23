@@ -34,6 +34,18 @@ mesh = SubResource("BoxMesh_b52ad")
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_exp1s")
 
-[node name="Turret" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14427, 0.221669)
+[node name="LeftArm" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, 0.40405, 0.14427, 0.221669)
 mesh = SubResource("BoxMesh_h6ld3")
+
+[node name="LeftArmRayCast" type="RayCast3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.416326, 0.124625, 0.731396)
+target_position = Vector3(0, 0, 20)
+
+[node name="RightArm" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, -0.405867, 0.14427, 0.221669)
+mesh = SubResource("BoxMesh_h6ld3")
+
+[node name="RightArmRayCast" type="RayCast3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.411174, 0.124625, 0.731396)
+target_position = Vector3(0, 0, 20)

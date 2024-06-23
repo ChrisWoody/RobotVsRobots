@@ -6,6 +6,9 @@ const MOVE_ANGLE = 0.707107
 @onready var base: MeshInstance3D = $Base
 @onready var body: MeshInstance3D = $Body
 
+@onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
+@onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
+
 func _physics_process(delta: float) -> void:
 
 	var baseRotation := 0.0
@@ -66,5 +69,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	if Input.is_action_just_pressed("shoot"):
+		var leftHit = leftArmRayCast.get_collider()
+		var rightHit = rightArmRayCast.get_collider()
+		if leftHit:
+			print("left hit something")
+		if rightHit:
+			print("right hit something")
 
 	move_and_slide()
