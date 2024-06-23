@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi762w2hvhikg"]
+
+[ext_resource type="Script" path="res://scripts/bullet_trail.gd" id="1_fg7hv"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_00otw"]
+top_radius = 0.05
+bottom_radius = 0.05
+radial_segments = 4
+rings = 2
+
+[node name="BulletTrail" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_00otw")
+script = ExtResource("1_fg7hv")

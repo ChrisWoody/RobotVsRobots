@@ -6,6 +6,8 @@ const MOVE_ANGLE = 0.707107
 @onready var base: MeshInstance3D = $Base
 @onready var body: MeshInstance3D = $Body
 
+@export var bulletTrail: PackedScene
+
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
 
@@ -75,7 +77,20 @@ func _physics_process(delta: float) -> void:
 		var rightHit = rightArmRayCast.get_collider()
 		if leftHit:
 			print("left hit something")
+		else:
+			print("left didn't hit")
+
 		if rightHit:
 			print("right hit something")
+		else:
+			print("right didn't hit")
+
+		var leftBulletTrail: Node3D = bulletTrail.instantiate()
+		add_sibling(leftBulletTrail)
+		leftBulletTrail.global_position = leftArmRayCast.global_position
+
+		var rightBulletTrail: Node3D = bulletTrail.instantiate()
+		add_sibling(rightBulletTrail)
+		rightBulletTrail.global_position = rightArmRayCast.global_position
 
 	move_and_slide()
