@@ -3,6 +3,9 @@ extends CharacterBody3D
 const SPEED = 15.0
 const MOVE_ANGLE = 0.707107
 
+const FIRE_TIMEOUT = 0.15
+var fireElapsed := 0.0
+
 @onready var base: MeshInstance3D = $Base
 @onready var body: MeshInstance3D = $Body
 
@@ -72,25 +75,33 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
-	if Input.is_action_just_pressed("shoot"):
-		var leftHit = leftArmRayCast.get_collider()
-		var rightHit = rightArmRayCast.get_collider()
-		if leftHit:
-			print("left hit something")
-		else:
-			print("left didn't hit")
+	if Input.is_action_pressed("shoot"):
+		fireElapsed += delta
+		if fireElapsed >= FIRE_TIMEOUT:
+			fireElapsed = 0.0
 
-		if rightHit:
-			print("right hit something")
-		else:
-			print("right didn't hit")
+			var leftHit = leftArmRayCast.get_collider()
+			var rightHit = rightArmRayCast.get_collider()
+			if leftHit:
+				print("left hit something")
+			else:
+				print("left didn't hit")
 
-		var leftBulletTrail: Node3D = bulletTrail.instantiate()
-		add_sibling(leftBulletTrail)
-		leftBulletTrail.global_position = leftArmRayCast.global_position
+			if rightHit:
+				print("right hit something")
+			else:
+				print("right didn't hit")
 
-		var rightBulletTrail: Node3D = bulletTrail.instantiate()
-		add_sibling(rightBulletTrail)
-		rightBulletTrail.global_position = rightArmRayCast.global_position
+			var leftBulletTrail: MeshInstance3D = bulletTrail.instantiate()
+			add_sibling(leftBulletTrail)
+			#leftBulletTrail.mesh.size = Vector3(0.05, 0.05, 20)
+			leftBulletTrail.global_rotation = leftArmRayCast.global_rotation
+			leftBulletTrail.global_position = leftArmRayCast.global_position + (leftBulletTrail.basis.z.normalized() * 9)
+
+			var rightBulletTrail: MeshInstance3D = bulletTrail.instantiate()
+			add_sibling(rightBulletTrail)
+			#rightBulletTrail.mesh.size = Vector3(0.05, 0.05, 20)
+			rightBulletTrail.global_rotation = rightArmRayCast.global_rotation
+			rightBulletTrail.global_position = rightArmRayCast.global_position + (rightBulletTrail.basis.z.normalized() * 9)
 
 	move_and_slide()
