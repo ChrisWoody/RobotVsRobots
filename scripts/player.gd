@@ -1,10 +1,13 @@
 extends CharacterBody3D
 
-const SPEED = 15.0
-const MOVE_ANGLE = 0.707107
+const SPEED := 15.0
+const MOVE_ANGLE := 0.707107
 
-const FIRE_TIMEOUT = 0.15
+const FIRE_TIMEOUT := 0.15
 var fireElapsed := 0.0
+
+const GUN_LIGHT_TIMEOUT := 0.20
+var gunLightElapsed := 0.0
 
 @onready var base: MeshInstance3D = $Base
 @onready var body: MeshInstance3D = $Body
@@ -13,6 +16,7 @@ var fireElapsed := 0.0
 
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
+@onready var gunFlash: OmniLight3D = $Body/GunFlash
 
 func _physics_process(delta: float) -> void:
 
@@ -75,9 +79,19 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
+	gunLightElapsed -= delta
+
+	if gunLightElapsed < 0.0:
+		gunLightElapsed = 0.0
+	gunFlash.light_energy = gunLightElapsed / GUN_LIGHT_TIMEOUT
+
+	# NOTE consider firing when the player aims inside of a separate action
+
 	if Input.is_action_pressed("shoot"):
 		fireElapsed += delta
+
 		if fireElapsed >= FIRE_TIMEOUT:
+			gunLightElapsed = GUN_LIGHT_TIMEOUT
 			fireElapsed = 0.0
 
 			var leftHit = leftArmRayCast.get_collider()

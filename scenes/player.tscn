@@ -51,3 +51,9 @@ mesh = SubResource("BoxMesh_h6ld3")
 [node name="RightArmRayCast" type="RayCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.411174, 0.124625, 0.796506)
 target_position = Vector3(0, 0, 20)
+
+[node name="GunFlash" type="OmniLight3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326671, 1.05059)
+light_color = Color(0.699735, 0.652659, 0.0597646, 1)
+light_energy = 0.0
+omni_range = 12.1189
