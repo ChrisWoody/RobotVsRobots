@@ -6,7 +6,7 @@ const MOVE_ANGLE := 0.707107
 const FIRE_TIMEOUT := 0.15
 var fireElapsed := 0.0
 
-const GUN_LIGHT_TIMEOUT := 0.20
+const GUN_LIGHT_TIMEOUT := 0.10
 var gunLightElapsed := 0.0
 
 @onready var base: MeshInstance3D = $Base
@@ -17,6 +17,10 @@ var gunLightElapsed := 0.0
 
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
+
+@onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
+@onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
+
 @onready var gunFlash: OmniLight3D = $Body/GunFlash
 
 func _physics_process(delta: float) -> void:
@@ -73,6 +77,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("aim_right") and Input.is_action_pressed("aim_down"):
 		bodyRotation = 90.0
 
+	leftMuzzleFlare.visible = false
+	rightMuzzleFlare.visible = false
+
 	if aimed:
 		body.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
 		shoot(delta)
@@ -100,6 +107,12 @@ func shoot(delta: float):
 		gunLightElapsed = GUN_LIGHT_TIMEOUT
 		fireElapsed = 0.0
 
+		leftMuzzleFlare.visible = true
+		rightMuzzleFlare.visible = true
+
+		leftMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
+		rightMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
+
 		var leftSize := 20.0
 		if leftArmRayCast.is_colliding():
 			var leftHit := leftArmRayCast.get_collision_point()
@@ -110,11 +123,11 @@ func shoot(delta: float):
 			leftBulletImpact.global_rotation = leftArmRayCast.global_rotation
 			leftBulletImpact.global_position = leftHit
 
-		var leftBulletTrail: BulletTrail = bulletTrail.instantiate()
-		add_sibling(leftBulletTrail)
-		leftBulletTrail.set_size(Vector3(0.05, 0.05, leftSize))
-		leftBulletTrail.global_rotation = leftArmRayCast.global_rotation
-		leftBulletTrail.global_position = leftArmRayCast.global_position + (leftBulletTrail.basis.z.normalized() * (leftSize * 0.5))
+		# var leftBulletTrail: BulletTrail = bulletTrail.instantiate()
+		# add_sibling(leftBulletTrail)
+		# leftBulletTrail.set_size(Vector3(0.05, 0.05, leftSize))
+		# leftBulletTrail.global_rotation = leftArmRayCast.global_rotation
+		# leftBulletTrail.global_position = leftArmRayCast.global_position + (leftBulletTrail.basis.z.normalized() * (leftSize * 0.5))
 
 		var rightSize := 20.0
 		if rightArmRayCast.is_colliding():
@@ -126,8 +139,8 @@ func shoot(delta: float):
 			rightBulletImpact.global_rotation = rightArmRayCast.global_rotation
 			rightBulletImpact.global_position = rightHit
 
-		var rightBulletTrail: BulletTrail = bulletTrail.instantiate()
-		add_sibling(rightBulletTrail)
-		rightBulletTrail.set_size(Vector3(0.05, 0.05, rightSize))
-		rightBulletTrail.global_rotation = rightArmRayCast.global_rotation
-		rightBulletTrail.global_position = rightArmRayCast.global_position + (rightBulletTrail.basis.z.normalized() * (rightSize * 0.5))
+		# var rightBulletTrail: BulletTrail = bulletTrail.instantiate()
+		# add_sibling(rightBulletTrail)
+		# rightBulletTrail.set_size(Vector3(0.05, 0.05, rightSize))
+		# rightBulletTrail.global_rotation = rightArmRayCast.global_rotation
+		# rightBulletTrail.global_position = rightArmRayCast.global_position + (rightBulletTrail.basis.z.normalized() * (rightSize * 0.5))

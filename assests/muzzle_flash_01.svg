@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="muzzle_flash_01.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.89263468"
+     inkscape:cx="-2.2405583"
+     inkscape:cy="719.2192"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ff0000;stroke:#000000;stroke-width:0.264583;fill-opacity:1"
+       d="M 90.997004,285.44012 C 54.325935,221.92396 53.700153,220.84007 53.700153,220.84007 l 25.618934,14.7911 -28.749804,-49.79612 24.175264,13.9576 -30.57118,-52.95084 24.389117,24.38912 -17.77075,-66.32134 18.442731,31.94375 V 79.437126 L 79.162208,116.48797 89.330087,78.540927 99.950369,118.17636 112.42605,71.616482 v 73.623038 l 10.88519,-18.85369 -12.7608,47.62394 13.99773,-8.0816 -10.93588,40.81329 10.69931,-10.69932 -8.79566,32.82585 8.21345,-8.21345 z"
+       id="path4029" />
+    <path
+       style="fill:#ff9900;stroke:#000000;stroke-width:0.264583;fill-opacity:1"
+       d="M 90.997004,285.1437 C 60.318861,228.67814 60.318861,228.38173 60.318861,228.38173 l 24.453593,12.44911 -24.453593,-44.31288 19.711077,8.1512 -21.044908,-38.08832 12.152694,9.04041 -12.893712,-53.05688 13.782934,24.30539 v -45.64671 l 7.261976,24.15719 9.633233,-34.086828 10.522455,35.420658 9.92964,-34.235029 0.74102,59.874249 8.2994,-13.93114 -11.55988,40.31138 13.63473,-7.55838 -11.26347,41.64521 11.11527,-9.63324 -8.59581,29.04791 6.37275,-3.55689 z"
+       id="path4031" />
+    <path
+       style="fill:#ffce00;stroke:#000000;stroke-width:0.264583;fill-opacity:1"
+       d="m 90.700597,284.99551 -13.338323,-36.16168 14.227545,0.59281 -15.116767,-37.79191 13.041918,1.63024 -16.895209,-32.16018 10.522455,2.22305 -13.041918,-32.01197 16.154193,10.67065 -9.040421,-31.86377 9.188625,5.63174 2.667664,-8.2994 7.261976,8.1512 6.669165,-7.11378 -1.77845,35.42066 7.26198,-6.07634 -7.55839,27.86227 9.48503,-2.96407 -10.37424,37.79191 11.55987,-4.89071 -9.78143,24.60179 7.70658,-3.40868 z"
+       id="path4033"
+       inkscape:export-filename="muzzle_flare_01.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>
