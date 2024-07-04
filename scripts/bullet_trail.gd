@@ -1,7 +1,12 @@
-extends MeshInstance3D
+class_name BulletTrail extends MeshInstance3D
 
 const TIMEOUT = 0.25
 var elapsed := 0.0
+var originalScale: Vector3
+
+func set_size(newScale: Vector3) -> void:
+	originalScale = newScale
+	scale = originalScale
 
 func _process(delta: float) -> void:
 	elapsed += delta
@@ -11,7 +16,6 @@ func _process(delta: float) -> void:
 	else:
 		var smaller := -(elapsed / TIMEOUT) + 1
 
-		var newScale = Vector3.ONE * smaller
+		var newScale = originalScale * smaller
 		newScale.z = scale.z
 		scale = newScale
-		#mesh.size = Vector3(0.05, 0.05, 20) * scale

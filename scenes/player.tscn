@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://3wab2t2musnw"]
+[gd_scene load_steps=9 format=3 uid="uid://3wab2t2musnw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d3567"]
 [ext_resource type="PackedScene" uid="uid://bi762w2hvhikg" path="res://scenes/bullet_trail.tscn" id="2_6aidt"]
+[ext_resource type="PackedScene" uid="uid://ba2stl4e4tpeh" path="res://scenes/bullet_impact.tscn" id="3_f05b4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8g4m2"]
 
@@ -21,6 +22,7 @@ size = Vector3(0.5, 0.25, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_d3567")
 bulletTrail = ExtResource("2_6aidt")
+bulletImpact = ExtResource("3_f05b4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_8g4m2")

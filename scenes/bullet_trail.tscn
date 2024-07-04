@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/bullet_trail.gd" id="1_fg7hv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_iuu3p"]
-size = Vector3(0.05, 0.05, 20)
 
 [node name="BulletTrail" type="MeshInstance3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("BoxMesh_iuu3p")
 script = ExtResource("1_fg7hv")
