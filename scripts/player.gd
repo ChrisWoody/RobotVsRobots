@@ -21,8 +21,6 @@ var gunLightElapsed := 0.0
 @onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
 @onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
 
-@onready var gunFlash: OmniLight3D = $Body/GunFlash
-
 func _physics_process(delta: float) -> void:
 
 	var baseRotation := 0.0
@@ -96,7 +94,6 @@ func _physics_process(delta: float) -> void:
 
 	if gunLightElapsed < 0.0:
 		gunLightElapsed = 0.0
-	gunFlash.light_energy = gunLightElapsed / GUN_LIGHT_TIMEOUT
 
 	move_and_slide()
 
