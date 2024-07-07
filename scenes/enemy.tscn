@@ -8,6 +8,8 @@
 
 [node name="Enemy" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562569, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_mmm4p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
