@@ -110,34 +110,18 @@ func shoot(delta: float):
 		leftMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
 		rightMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
 
-		var leftSize := 20.0
 		if leftArmRayCast.is_colliding():
-			var leftHit := leftArmRayCast.get_collision_point()
-			leftSize = (leftHit - leftArmRayCast.global_position).length()
-
 			var leftBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(leftBulletImpact)
-			leftBulletImpact.global_rotation = leftArmRayCast.global_rotation
-			leftBulletImpact.global_position = leftHit
+			leftBulletImpact.global_position = leftArmRayCast.get_collision_point()
 
-		# var leftBulletTrail: BulletTrail = bulletTrail.instantiate()
-		# add_sibling(leftBulletTrail)
-		# leftBulletTrail.set_size(Vector3(0.05, 0.05, leftSize))
-		# leftBulletTrail.global_rotation = leftArmRayCast.global_rotation
-		# leftBulletTrail.global_position = leftArmRayCast.global_position + (leftBulletTrail.basis.z.normalized() * (leftSize * 0.5))
+			var leftHitNode := leftArmRayCast.get_collider() as Enemy
+			leftHitNode.hit()
 
-		var rightSize := 20.0
 		if rightArmRayCast.is_colliding():
-			var rightHit := rightArmRayCast.get_collision_point()
-			rightSize = (rightHit - rightArmRayCast.global_position).length()
-
 			var rightBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(rightBulletImpact)
-			rightBulletImpact.global_rotation = rightArmRayCast.global_rotation
-			rightBulletImpact.global_position = rightHit
+			rightBulletImpact.global_position = rightArmRayCast.get_collision_point()
 
-		# var rightBulletTrail: BulletTrail = bulletTrail.instantiate()
-		# add_sibling(rightBulletTrail)
-		# rightBulletTrail.set_size(Vector3(0.05, 0.05, rightSize))
-		# rightBulletTrail.global_rotation = rightArmRayCast.global_rotation
-		# rightBulletTrail.global_position = rightArmRayCast.global_position + (rightBulletTrail.basis.z.normalized() * (rightSize * 0.5))
+			var rightHitNode := rightArmRayCast.get_collider() as Enemy
+			rightHitNode.hit()

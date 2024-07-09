@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds1yiop1n60g0"]
+[gd_scene load_steps=13 format=3 uid="uid://ds1yiop1n60g0"]
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
 [ext_resource type="Texture2D" uid="uid://c8c2vgbs4xbji" path="res://assests/floor_01.png" id="2_3g4q0"]
 [ext_resource type="Texture2D" uid="uid://kbr8rr8ucrxe" path="res://assests/SciFiFloor/Sci-fi_Floor_001_ambientOcclusion.jpg" id="3_kk0dk"]
 [ext_resource type="Texture2D" uid="uid://dgmbwvd1mspk6" path="res://assests/SciFiFloor/Sci-fi_Floor_001_emission.jpg" id="4_nqdan"]
 [ext_resource type="Texture2D" uid="uid://b48fx73cy3fen" path="res://assests/SciFiFloor/Sci-fi_Floor_001_normal.jpg" id="7_4kygc"]
+[ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="7_rvcpe"]
 [ext_resource type="PackedScene" uid="uid://07mypjfh6cpx" path="res://scenes/enemy.tscn" id="9_b3x0j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
@@ -22,6 +23,13 @@ uv1_scale = Vector3(40, 40, 40)
 [sub_resource type="BoxMesh" id="BoxMesh_ffork"]
 material = SubResource("StandardMaterial3D_0ifc8")
 size = Vector3(100, 1, 100)
+
+[sub_resource type="Curve3D" id="Curve3D_l8g88"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5, 0, -5, 0, 0, 0, 0, 0, 0, -5, 0, -5, 0, 0, 0, 0, 0, 0, -5, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, -5),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="World" type="Node3D"]
 
@@ -45,14 +53,22 @@ material_override = SubResource("StandardMaterial3D_q5qfs")
 mesh = SubResource("BoxMesh_ffork")
 
 [node name="Enemy" parent="." instance=ExtResource("9_b3x0j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.54705, 1.06257, 4.70563)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.54705, 0.5, 4.70563)
 
 [node name="Enemy2" parent="." instance=ExtResource("9_b3x0j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25584, 1.06257, 7.35449)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25584, 0.5, 7.35449)
 
 [node name="Enemy3" parent="." instance=ExtResource("9_b3x0j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31344, 1.06257, 2.00886)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31344, 0.5, 2.00886)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.503085, 0.57733, 0.643113, -0.818884, 0.0805427, 0.56828, 0.276287, -0.812529, 0.513286, 0, 5.70701, 0)
 shadow_enabled = true
+
+[node name="EnemySpawner" type="Path3D" parent="."]
+curve = SubResource("Curve3D_l8g88")
+script = ExtResource("7_rvcpe")
+enemyScene = ExtResource("9_b3x0j")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="EnemySpawner"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -5)
