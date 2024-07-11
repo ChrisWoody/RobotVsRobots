@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ds1yiop1n60g0"]
+[gd_scene load_steps=16 format=3 uid="uid://ds1yiop1n60g0"]
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
 [ext_resource type="Texture2D" uid="uid://c8c2vgbs4xbji" path="res://assests/floor_01.png" id="2_3g4q0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b48fx73cy3fen" path="res://assests/SciFiFloor/Sci-fi_Floor_001_normal.jpg" id="7_4kygc"]
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="7_rvcpe"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="8_lhdl2"]
+[ext_resource type="Script" path="res://scripts/game_canvas.gd" id="9_2kojg"]
 [ext_resource type="PackedScene" uid="uid://07mypjfh6cpx" path="res://scenes/enemy.tscn" id="9_b3x0j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
@@ -31,6 +32,10 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_512k1"]
+font_size = 40
+outline_size = 1
 
 [node name="World" type="Node3D"]
 
@@ -68,4 +73,16 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("8_lhdl2")
 
+[node name="GameCanvas" type="CanvasLayer" parent="."]
+script = ExtResource("9_2kojg")
+
+[node name="Label" type="Label" parent="GameCanvas"]
+offset_left = 44.0
+offset_top = 39.0
+offset_right = 557.0
+offset_bottom = 131.0
+text = "Enemies destroyed: 0"
+label_settings = SubResource("LabelSettings_512k1")
+
+[connection signal="enemy_destroyed" from="EnemySpawner" to="GameCanvas" method="_on_enemy_spawner_enemy_destroyed"]
 [connection signal="start_game" from="GameManager" to="EnemySpawner" method="_on_game_manager_start_game"]
