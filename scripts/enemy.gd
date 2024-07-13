@@ -18,7 +18,7 @@ var health := ORIGINAL_HEALTH
 # 	reset_and_hide()
 
 func _physics_process(delta: float) -> void:
-	if !alive:
+	if not alive:
 		return
 
 	rotateElapsed += delta
@@ -40,6 +40,12 @@ func spawn(newPosition: Vector3) -> void:
 	visible = true
 	sleeping = false
 	alive = true
+
+func _on_game_manager_start_game() -> void:
+	queue_free()
+
+func _on_game_manager_game_over() -> void:
+	alive = false
 
 # func reset_and_hide() -> void:
 # 	health = ORIGINAL_HEALTH

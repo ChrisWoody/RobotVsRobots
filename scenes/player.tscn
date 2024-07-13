@@ -49,6 +49,7 @@ target_position = Vector3(0, 0, 20)
 
 [node name="LeftMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, -0.328623, 0, 1.77169)
+cast_shadow = 0
 
 [node name="RightArm" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, -0.405867, 0.14427, 0.221669)
@@ -60,9 +61,4 @@ target_position = Vector3(0, 0, 20)
 
 [node name="RightMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, 0.506145, 0, 1.77169)
-
-[node name="GunFlash" type="OmniLight3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326671, 1.05059)
-light_color = Color(0.699735, 0.652659, 0.0597646, 1)
-light_energy = 0.0
-omni_range = 12.1189
+cast_shadow = 0

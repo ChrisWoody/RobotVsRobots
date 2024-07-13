@@ -16,7 +16,7 @@ const TOTAL_ENEMY_COUNT := 10
 var playing := false
 
 func _process(delta: float) -> void:
-	if !playing:
+	if not playing:
 		return
 
 	spawnElapsed += delta
@@ -30,6 +30,8 @@ func _process(delta: float) -> void:
 		add_sibling(enemyInstance)
 		pathFollower.progress_ratio = randf()
 		enemyInstance.enemy_death.connect(on_enemy_death)
+		gameManager.start_game.connect(enemyInstance._on_game_manager_start_game)
+		gameManager.game_over.connect(enemyInstance._on_game_manager_game_over)
 		enemyInstance.spawn(pathFollower.global_position)
 		currentEnemyCount += 1
 
@@ -44,3 +46,6 @@ func _on_game_manager_start_game() -> void:
 	spawnElapsed = 0.0
 	totalEnemiesDestroyed = 0
 	playing = true
+
+func _on_game_manager_game_over() -> void:
+	playing = false

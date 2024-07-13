@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ds1yiop1n60g0"]
+[gd_scene load_steps=18 format=3 uid="uid://ds1yiop1n60g0"]
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
 [ext_resource type="Texture2D" uid="uid://c8c2vgbs4xbji" path="res://assests/floor_01.png" id="2_3g4q0"]
@@ -36,6 +36,12 @@ point_count = 5
 [sub_resource type="LabelSettings" id="LabelSettings_512k1"]
 font_size = 40
 outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_kl0uy"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ln84"]
+font_size = 36
 
 [node name="World" type="Node3D"]
 
@@ -76,7 +82,7 @@ script = ExtResource("8_lhdl2")
 [node name="GameCanvas" type="CanvasLayer" parent="."]
 script = ExtResource("9_2kojg")
 
-[node name="Label" type="Label" parent="GameCanvas"]
+[node name="EnemiesDestroyedLabel" type="Label" parent="GameCanvas"]
 offset_left = 44.0
 offset_top = 39.0
 offset_right = 557.0
@@ -84,5 +90,62 @@ offset_bottom = 131.0
 text = "Enemies destroyed: 0"
 label_settings = SubResource("LabelSettings_512k1")
 
+[node name="StartGameLabel" type="Label" parent="GameCanvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.0
+offset_top = -110.0
+offset_right = 278.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "WASD to move
+Arrow keys to aim and shoot
+
+Press 'Space' to start playing"
+label_settings = SubResource("LabelSettings_kl0uy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartGameLayer" type="ColorRect" parent="GameCanvas"]
+z_index = -1
+offset_right = 4000.0
+offset_bottom = 2000.0
+color = Color(0, 0, 0, 0.380392)
+
+[node name="EndGameLabel" type="Label" parent="GameCanvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game over!
+
+Press 'Space' to play again"
+label_settings = SubResource("LabelSettings_7ln84")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndGameLayer" type="ColorRect" parent="GameCanvas"]
+z_index = -1
+offset_right = 4000.0
+offset_bottom = 2000.0
+color = Color(0, 0, 0, 0.380392)
+
 [connection signal="enemy_destroyed" from="EnemySpawner" to="GameCanvas" method="_on_enemy_spawner_enemy_destroyed"]
+[connection signal="game_over" from="GameManager" to="Player" method="_on_game_manager_game_over"]
+[connection signal="game_over" from="GameManager" to="EnemySpawner" method="_on_game_manager_game_over"]
+[connection signal="game_over" from="GameManager" to="GameCanvas" method="_on_game_manager_game_over"]
+[connection signal="start_game" from="GameManager" to="Player" method="_on_game_manager_start_game"]
 [connection signal="start_game" from="GameManager" to="EnemySpawner" method="_on_game_manager_start_game"]
+[connection signal="start_game" from="GameManager" to="GameCanvas" method="_on_game_manager_start_game"]

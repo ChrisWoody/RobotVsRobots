@@ -21,7 +21,15 @@ var gunLightElapsed := 0.0
 @onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
 @onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
 
+var playing := false
+
+func _ready() -> void:
+	leftMuzzleFlare.visible = false
+	rightMuzzleFlare.visible = false
+
 func _physics_process(delta: float) -> void:
+	if not playing:
+		return
 
 	var baseRotation := 0.0
 	var bodyRotation := 0.0
@@ -125,3 +133,10 @@ func shoot(delta: float):
 
 			var rightHitNode := rightArmRayCast.get_collider() as Enemy
 			rightHitNode.hit()
+
+func _on_game_manager_start_game() -> void:
+	playing = true
+
+
+func _on_game_manager_game_over() -> void:
+	playing = false
