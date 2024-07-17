@@ -18,3 +18,7 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_R):
 		playingGame = false
 		game_over.emit()
+
+func _on_player_player_hit() -> void:
+	playingGame = false
+	game_over.emit()

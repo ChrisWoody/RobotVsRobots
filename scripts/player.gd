@@ -9,6 +9,8 @@ var fireElapsed := 0.0
 const GUN_LIGHT_TIMEOUT := 0.10
 var gunLightElapsed := 0.0
 
+signal player_hit
+
 @onready var base: MeshInstance3D = $Base
 @onready var body: MeshInstance3D = $Body
 
@@ -140,3 +142,8 @@ func _on_game_manager_start_game() -> void:
 
 func _on_game_manager_game_over() -> void:
 	playing = false
+
+
+func _on_hitbox_body_entered(body:Node3D) -> void:
+	if body.name.begins_with("Enemy"):
+		player_hit.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3wab2t2musnw"]
+[gd_scene load_steps=11 format=3 uid="uid://3wab2t2musnw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d3567"]
 [ext_resource type="PackedScene" uid="uid://bi762w2hvhikg" path="res://scenes/bullet_trail.tscn" id="2_6aidt"]
@@ -18,6 +18,8 @@ size = Vector3(0.7, 0.7, 0.7)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h6ld3"]
 size = Vector3(0.5, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_psvn8"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -62,3 +64,10 @@ target_position = Vector3(0, 0, 20)
 [node name="RightMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, 0.506145, 0, 1.77169)
 cast_shadow = 0
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("BoxShape3D_psvn8")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
