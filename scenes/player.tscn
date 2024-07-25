@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3wab2t2musnw"]
+[gd_scene load_steps=12 format=3 uid="uid://3wab2t2musnw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d3567"]
 [ext_resource type="PackedScene" uid="uid://bi762w2hvhikg" path="res://scenes/bullet_trail.tscn" id="2_6aidt"]
@@ -19,10 +19,15 @@ size = Vector3(0.7, 0.7, 0.7)
 [sub_resource type="BoxMesh" id="BoxMesh_h6ld3"]
 size = Vector3(0.5, 0.25, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_3ba0r"]
+size = Vector3(0.1, 0.1, 0.2)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_psvn8"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_d3567")
 bulletTrail = ExtResource("2_6aidt")
 bulletImpact = ExtResource("3_f05b4")
@@ -45,27 +50,43 @@ mesh = SubResource("BoxMesh_exp1s")
 transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, 0.40405, 0.14427, 0.221669)
 mesh = SubResource("BoxMesh_h6ld3")
 
+[node name="LeftArmBulletCasings" type="CPUParticles3D" parent="Body/LeftArm"]
+transform = Transform3D(2.44502, 0, 0, 0, 1, 0, 0, 0, 1, 0.390044, 0.0794362, -0.221669)
+emitting = false
+mesh = SubResource("BoxMesh_3ba0r")
+gravity = Vector3(10, -20, 0)
+initial_velocity_max = 0.5
+
 [node name="LeftArmRayCast" type="RayCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.416326, 0.124625, 0.811992)
 target_position = Vector3(0, 0, 20)
+collision_mask = 5
 
 [node name="LeftMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, -0.328623, 0, 1.77169)
-cast_shadow = 0
 
 [node name="RightArm" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, -0.405867, 0.14427, 0.221669)
 mesh = SubResource("BoxMesh_h6ld3")
 
+[node name="RightArmBulletCasings" type="CPUParticles3D" parent="Body/RightArm"]
+transform = Transform3D(2.44502, 0, 0, 0, 1, 0, 0, 0, 1, -0.39, 0.079, -0.222)
+emitting = false
+mesh = SubResource("BoxMesh_3ba0r")
+gravity = Vector3(-10, -20, 0)
+initial_velocity_max = 0.5
+
 [node name="RightArmRayCast" type="RayCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.411174, 0.124625, 0.796506)
 target_position = Vector3(0, 0, 20)
+collision_mask = 5
 
 [node name="RightMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, 0.506145, 0, 1.77169)
-cast_shadow = 0
 
 [node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("BoxShape3D_psvn8")

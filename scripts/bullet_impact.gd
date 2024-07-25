@@ -1,6 +1,9 @@
 class_name BulletImpact extends MeshInstance3D
 
-const TIMEOUT = 0.40
+@onready var particles: CPUParticles3D = $Particles
+
+const TIMEOUT = 0.4
+const QUEUE_TIMEOUT = 0.8
 var elapsed := 0.0
 var originalScale: Vector3
 
@@ -10,8 +13,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	elapsed += delta
 
-	if elapsed >= TIMEOUT:
+	if elapsed >= QUEUE_TIMEOUT:
 		queue_free()
+	elif elapsed >= TIMEOUT:
+		particles.emitting = false
 	else:
 		var smaller := -(elapsed / TIMEOUT) + 1
 		scale = originalScale * smaller

@@ -30,12 +30,13 @@ func _physics_process(delta: float) -> void:
 
 func hit() -> void:
 	health -= 1
-	if health <= 0:
+	if health <= 0 and alive:
+		alive = false
 		enemy_death.emit()
 		queue_free()
 
 func spawn(newPosition: Vector3) -> void:
-	speed = 3.0 + (randf() * 2.0)
+	speed = 4.0 + (randf() * 2.0)
 	global_position = newPosition
 	visible = true
 	sleeping = false

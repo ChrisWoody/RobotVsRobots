@@ -65,6 +65,8 @@ aim_down={
 
 [layer_names]
 
-3d_physics/layer_1="ground"
+3d_physics/layer_1="wall"
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemies"
+3d_physics/layer_4="ground"
+3d_physics/layer_5="playerhitbox"

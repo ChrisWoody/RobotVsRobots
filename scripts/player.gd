@@ -20,6 +20,9 @@ signal player_hit
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
 
+@onready var leftArmBulletCasings: CPUParticles3D = $Body/LeftArm/LeftArmBulletCasings
+@onready var rightArmBulletCasings: CPUParticles3D = $Body/RightArm/RightArmBulletCasings
+
 @onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
 @onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
 
@@ -87,10 +90,14 @@ func _physics_process(delta: float) -> void:
 
 	leftMuzzleFlare.visible = false
 	rightMuzzleFlare.visible = false
+	leftArmBulletCasings.emitting = false
+	rightArmBulletCasings.emitting = false
 
 	if aimed:
 		body.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
 		shoot(delta)
+		leftArmBulletCasings.emitting = true
+		rightArmBulletCasings.emitting = true
 
 	if dir != Vector3.ZERO:
 		velocity.x = dir.x * SPEED
@@ -124,17 +131,21 @@ func shoot(delta: float):
 			var leftBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(leftBulletImpact)
 			leftBulletImpact.global_position = leftArmRayCast.get_collision_point()
+			leftBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
 
 			var leftHitNode := leftArmRayCast.get_collider() as Enemy
-			leftHitNode.hit()
+			if leftHitNode and leftHitNode.has_method("hit"):
+				leftHitNode.hit()
 
 		if rightArmRayCast.is_colliding():
 			var rightBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(rightBulletImpact)
 			rightBulletImpact.global_position = rightArmRayCast.get_collision_point()
+			rightBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
 
 			var rightHitNode := rightArmRayCast.get_collider() as Enemy
-			rightHitNode.hit()
+			if rightHitNode and rightHitNode.has_method("hit"):
+				rightHitNode.hit()
 
 func _on_game_manager_start_game() -> void:
 	playing = true
@@ -145,5 +156,5 @@ func _on_game_manager_game_over() -> void:
 
 
 func _on_hitbox_body_entered(body:Node3D) -> void:
-	if body.name.begins_with("Enemy"):
+	if body.has_method("hit"):
 		player_hit.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ds1yiop1n60g0"]
+[gd_scene load_steps=19 format=3 uid="uid://ds1yiop1n60g0"]
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
 [ext_resource type="Texture2D" uid="uid://c8c2vgbs4xbji" path="res://assests/floor_01.png" id="2_3g4q0"]
@@ -9,8 +9,10 @@
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="8_lhdl2"]
 [ext_resource type="Script" path="res://scripts/game_canvas.gd" id="9_2kojg"]
 [ext_resource type="PackedScene" uid="uid://07mypjfh6cpx" path="res://scenes/enemy.tscn" id="9_b3x0j"]
+[ext_resource type="PackedScene" uid="uid://cw7h5oadtwqld" path="res://scenes/wall.tscn" id="10_6cmab"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
+size = Vector3(100, 1, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5qfs"]
 albedo_texture = ExtResource("2_3g4q0")
@@ -28,7 +30,7 @@ size = Vector3(100, 1, 100)
 
 [sub_resource type="Curve3D" id="Curve3D_l8g88"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5, 0, -5, 0, 0, 0, 0, 0, 0, -5, 0, -5, 0, 0, 0, 0, 0, 0, -5, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, -5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30, 2, -30, 0, 0, 0, 0, 0, 0, -30, 0, -30, 0, 0, 0, 0, 0, 0, -30, 0, 30, 0, 0, 0, 0, 0, 0, 30, 0, 30, 0, 0, 0, 0, 0, 0, 30, 0, -30),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
@@ -54,9 +56,11 @@ projection = 1
 size = 11.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 8
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_qvwio")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -74,7 +78,7 @@ script = ExtResource("7_rvcpe")
 enemyScene = ExtResource("9_b3x0j")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="EnemySpawner"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -5)
+transform = Transform3D(-4.37114e-08, -0.0333148, 0.999445, 0, 0.999445, 0.0333148, -1, 1.45624e-09, -4.36871e-08, 30, 2, -30)
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("8_lhdl2")
@@ -86,7 +90,7 @@ script = ExtResource("9_2kojg")
 offset_left = 44.0
 offset_top = 39.0
 offset_right = 557.0
-offset_bottom = 131.0
+offset_bottom = 103.0
 text = "Enemies destroyed: 0"
 label_settings = SubResource("LabelSettings_512k1")
 
@@ -103,7 +107,9 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "WASD to move
+text = "Destroy the other robots!
+
+WASD to move
 Arrow keys to aim and shoot
 
 Press 'Space' to start playing"
@@ -141,6 +147,20 @@ z_index = -1
 offset_right = 4000.0
 offset_bottom = 2000.0
 color = Color(0, 0, 0, 0.380392)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("10_6cmab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, 0)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("10_6cmab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0, 0)
+
+[node name="Wall3" parent="Walls" instance=ExtResource("10_6cmab")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 24.5)
+
+[node name="Wall4" parent="Walls" instance=ExtResource("10_6cmab")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -24.5)
 
 [connection signal="player_hit" from="Player" to="GameManager" method="_on_player_player_hit"]
 [connection signal="enemy_destroyed" from="EnemySpawner" to="GameCanvas" method="_on_enemy_spawner_enemy_destroyed"]

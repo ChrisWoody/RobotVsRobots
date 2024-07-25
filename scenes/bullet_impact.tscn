@@ -1,13 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba2stl4e4tpeh"]
+[gd_scene load_steps=7 format=3 uid="uid://ba2stl4e4tpeh"]
 
 [ext_resource type="Script" path="res://scripts/bullet_impact.gd" id="1_faxyv"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgkco"]
+albedo_color = Color(0.841033, 0.462048, 5.77569e-07, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_b7ud6"]
+material = SubResource("StandardMaterial3D_lgkco")
 
-[sub_resource type="BoxMesh" id="BoxMesh_xbiag"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwvty"]
+transparency = 1
+albedo_color = Color(0.486275, 0.321569, 0.164706, 0.827451)
 
-[sub_resource type="Curve" id="Curve_nq8yd"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.37862, 0.0, 0, 0]
+[sub_resource type="BoxMesh" id="BoxMesh_l5mr5"]
+material = SubResource("StandardMaterial3D_uwvty")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Curve" id="Curve_6xwbl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99061, 0.043956), 0.841174, 0.0, 0, 0]
 point_count = 2
 
 [node name="BulletImpact" type="MeshInstance3D"]
@@ -15,15 +25,13 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("BoxMesh_b7ud6")
 script = ExtResource("1_faxyv")
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
-amount = 20
+[node name="Particles" type="CPUParticles3D" parent="."]
+amount = 100
 lifetime = 0.4
-randomness = 0.55
-local_coords = true
-mesh = SubResource("BoxMesh_xbiag")
+speed_scale = 2.0
+mesh = SubResource("BoxMesh_l5mr5")
 emission_shape = 3
-emission_box_extents = Vector3(0.5, 0.5, 0.5)
-spread = 180.0
-initial_velocity_min = 40.0
-initial_velocity_max = 60.2
-scale_amount_curve = SubResource("Curve_nq8yd")
+emission_box_extents = Vector3(0.7, 0.7, 0.7)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_amount_curve = SubResource("Curve_6xwbl")
