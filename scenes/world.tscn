@@ -107,7 +107,8 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "Destroy the other robots!
+text = "Destroy the other robots
+before they hit you!
 
 WASD to move
 Arrow keys to aim and shoot
