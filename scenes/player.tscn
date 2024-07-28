@@ -16,8 +16,8 @@ size = Vector3(0.2, 0.2, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_exp1s"]
 size = Vector3(0.7, 0.7, 0.7)
 
-[sub_resource type="BoxMesh" id="BoxMesh_h6ld3"]
-size = Vector3(0.5, 0.25, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_6d0vg"]
+size = Vector3(0.05, 0.05, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3ba0r"]
 size = Vector3(0.1, 0.1, 0.2)
@@ -46,17 +46,6 @@ mesh = SubResource("BoxMesh_b52ad")
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_exp1s")
 
-[node name="LeftArm" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, 0.40405, 0.14427, 0.221669)
-mesh = SubResource("BoxMesh_h6ld3")
-
-[node name="LeftArmBulletCasings" type="CPUParticles3D" parent="Body/LeftArm"]
-transform = Transform3D(2.44502, 0, 0, 0, 1, 0, 0, 0, 1, 0.390044, 0.0794362, -0.221669)
-emitting = false
-mesh = SubResource("BoxMesh_3ba0r")
-gravity = Vector3(10, -20, 0)
-initial_velocity_max = 0.5
-
 [node name="LeftArmRayCast" type="RayCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.416326, 0.124625, 0.811992)
 target_position = Vector3(0, 0, 20)
@@ -65,12 +54,53 @@ collision_mask = 5
 [node name="LeftMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, -0.328623, 0, 1.77169)
 
-[node name="RightArm" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0.408994, 0, 0, 0, 1, 0, 0, 0, 1, -0.405867, 0.14427, 0.221669)
-mesh = SubResource("BoxMesh_h6ld3")
+[node name="RightArmBarrels" type="Node3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.437404, 0.14427, 0.221669)
 
-[node name="RightArmBulletCasings" type="CPUParticles3D" parent="Body/RightArm"]
-transform = Transform3D(2.44502, 0, 0, 0, 1, 0, 0, 0, 1, -0.39, 0.079, -0.222)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/RightArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, -0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/RightArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, -0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body/RightArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Body/RightArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="LeftArmBarrels" type="Node3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.437, 0.144, 0.222)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/LeftArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, -0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/LeftArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, -0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body/LeftArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Body/LeftArmBarrels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0)
+mesh = SubResource("BoxMesh_6d0vg")
+
+[node name="LeftArmBulletCasings" type="CPUParticles3D" parent="Body"]
+transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 1, 0.563576, 0.223706, 0)
+emitting = false
+mesh = SubResource("BoxMesh_3ba0r")
+gravity = Vector3(10, -20, 0)
+initial_velocity_max = 0.5
+
+[node name="RightArmBulletCasings" type="CPUParticles3D" parent="Body"]
+transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 1, -0.565375, 0.22327, -0.000330999)
 emitting = false
 mesh = SubResource("BoxMesh_3ba0r")
 gravity = Vector3(-10, -20, 0)

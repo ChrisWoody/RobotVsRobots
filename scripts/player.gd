@@ -20,8 +20,11 @@ signal player_hit
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
 
-@onready var leftArmBulletCasings: CPUParticles3D = $Body/LeftArm/LeftArmBulletCasings
-@onready var rightArmBulletCasings: CPUParticles3D = $Body/RightArm/RightArmBulletCasings
+@onready var leftArmBulletCasings: CPUParticles3D = $Body/LeftArmBulletCasings
+@onready var rightArmBulletCasings: CPUParticles3D = $Body/RightArmBulletCasings
+
+@onready var leftArmBarrels: Node3D = $Body/LeftArmBarrels
+@onready var rightArmBarrels: Node3D = $Body/RightArmBarrels
 
 @onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
 @onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
@@ -96,6 +99,8 @@ func _physics_process(delta: float) -> void:
 	if aimed:
 		body.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
 		shoot(delta)
+		leftArmBarrels.rotate(Vector3.BACK, -360 * delta)
+		rightArmBarrels.rotate(Vector3.BACK, 360 * delta)
 		leftArmBulletCasings.emitting = true
 		rightArmBulletCasings.emitting = true
 
