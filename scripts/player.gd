@@ -12,7 +12,7 @@ var gunLightElapsed := 0.0
 signal player_hit
 
 @onready var base: MeshInstance3D = $Base
-@onready var body: MeshInstance3D = $Body
+@onready var bodyMesh: MeshInstance3D = $Body
 
 @export var bulletTrail: PackedScene
 @export var bulletImpact: PackedScene
@@ -97,7 +97,7 @@ func _physics_process(delta: float) -> void:
 	rightArmBulletCasings.emitting = false
 
 	if aimed:
-		body.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
+		bodyMesh.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
 		shoot(delta)
 		leftArmBarrels.rotate(Vector3.BACK, -360 * delta)
 		rightArmBarrels.rotate(Vector3.BACK, 360 * delta)
@@ -160,6 +160,6 @@ func _on_game_manager_game_over() -> void:
 	playing = false
 
 
-func _on_hitbox_body_entered(body:Node3D) -> void:
+func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.has_method("hit"):
 		player_hit.emit()
