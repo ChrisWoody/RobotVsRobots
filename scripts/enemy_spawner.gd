@@ -1,6 +1,8 @@
 extends Path3D
 
 @export var enemyScene: PackedScene
+@export var enemyDeath: PackedScene
+
 @onready var pathFollower: PathFollow3D = $PathFollow3D
 @onready var gameManager: GameManager = get_node("../GameManager")
 
@@ -32,7 +34,7 @@ func _process(delta: float) -> void:
 		enemyInstance.enemy_death.connect(on_enemy_death)
 		gameManager.start_game.connect(enemyInstance._on_game_manager_start_game)
 		gameManager.game_over.connect(enemyInstance._on_game_manager_game_over)
-		enemyInstance.spawn(pathFollower.global_position)
+		enemyInstance.spawn(pathFollower.global_position, enemyDeath)
 		currentEnemyCount += 1
 
 # is this being called more than it should? Might be a timing/concurrency issue?

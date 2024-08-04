@@ -1,26 +1,49 @@
-[gd_scene load_steps=12 format=3 uid="uid://3wab2t2musnw"]
+[gd_scene load_steps=18 format=3 uid="uid://3wab2t2musnw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d3567"]
 [ext_resource type="PackedScene" uid="uid://bi762w2hvhikg" path="res://scenes/bullet_trail.tscn" id="2_6aidt"]
 [ext_resource type="PackedScene" uid="uid://ba2stl4e4tpeh" path="res://scenes/bullet_impact.tscn" id="3_f05b4"]
+[ext_resource type="PackedScene" uid="uid://bgksx4wv23rqy" path="res://scenes/bullet.tscn" id="4_hyg87"]
 [ext_resource type="PackedScene" uid="uid://2oo27d66hbl2" path="res://scenes/muzzle_flare.tscn" id="4_y2nig"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8g4m2"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seh1l"]
+albedo_color = Color(0.381703, 0.381703, 0.381703, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_nqrc5"]
+material = SubResource("StandardMaterial3D_seh1l")
 size = Vector3(1, 0.25, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_b52ad"]
+material = SubResource("StandardMaterial3D_seh1l")
 size = Vector3(0.2, 0.2, 0.2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhqtc"]
+albedo_color = Color(0.122252, 0.122252, 0.122252, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_exp1s"]
+material = SubResource("StandardMaterial3D_mhqtc")
 size = Vector3(0.7, 0.7, 0.7)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44hky"]
+albedo_color = Color(0.61339, 0.61339, 0.61339, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_6d0vg"]
+material = SubResource("StandardMaterial3D_44hky")
 size = Vector3(0.05, 0.05, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3ba0r"]
 size = Vector3(0.1, 0.1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l65cl"]
+albedo_color = Color(0.919281, 4.47616e-06, 1.15514e-06, 1)
+emission_enabled = true
+emission = Color(0.84956, 3.29696e-06, 1.54018e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_478e4"]
+material = SubResource("StandardMaterial3D_l65cl")
+size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_psvn8"]
 
@@ -31,6 +54,7 @@ collision_mask = 9
 script = ExtResource("1_d3567")
 bulletTrail = ExtResource("2_6aidt")
 bulletImpact = ExtResource("3_f05b4")
+bullet = ExtResource("4_hyg87")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_8g4m2")
@@ -40,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.351584, 0)
 mesh = SubResource("BoxMesh_nqrc5")
 
 [node name="BaseIndicator" type="MeshInstance3D" parent="Base"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0410869, 0.610651)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0410869, 0.581431)
 mesh = SubResource("BoxMesh_b52ad")
 
 [node name="Body" type="MeshInstance3D" parent="."]
@@ -113,6 +137,14 @@ collision_mask = 5
 
 [node name="RightMuzzleFlare" parent="Body" instance=ExtResource("4_y2nig")]
 transform = Transform3D(-1, 1.74846e-07, 3.82137e-15, 0, -8.74228e-08, 1, 8.74228e-08, 2, 4.37114e-08, 0.506145, 0, 1.77169)
+
+[node name="Eye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166697, 0.20274, 0.338626)
+mesh = SubResource("BoxMesh_478e4")
+
+[node name="Eye2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.167, 0.203, 0.339)
+mesh = SubResource("BoxMesh_478e4")
 
 [node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 16

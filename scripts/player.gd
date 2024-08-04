@@ -16,6 +16,7 @@ signal player_hit
 
 @export var bulletTrail: PackedScene
 @export var bulletImpact: PackedScene
+@export var bullet: PackedScene
 
 @onready var leftArmRayCast: RayCast3D = $Body/LeftArmRayCast
 @onready var rightArmRayCast: RayCast3D = $Body/RightArmRayCast
@@ -132,25 +133,43 @@ func shoot(delta: float):
 		leftMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
 		rightMuzzleFlare.scale = Vector3(1.0 - (0.50 * randf()), 2.0 - (0.50 * randf()), 1.0 - (0.50 * randf()))
 
+		var leftBullet: Bullet = bullet.instantiate()
+
 		if leftArmRayCast.is_colliding():
 			var leftBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(leftBulletImpact)
 			leftBulletImpact.global_position = leftArmRayCast.get_collision_point()
 			leftBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
+			leftBullet.fire(leftArmRayCast.get_collision_point() - leftMuzzleFlare.global_position)
 
 			var leftHitNode := leftArmRayCast.get_collider() as Enemy
 			if leftHitNode and leftHitNode.has_method("hit"):
 				leftHitNode.hit()
+		else:
+			leftBullet.fire(Vector3(50.0, 50.0, 50.0))
+
+		add_sibling(leftBullet)
+		leftBullet.global_position = leftMuzzleFlare.global_position
+		leftBullet.global_rotation = bodyMesh.global_rotation
+
+		var rightBullet: Bullet = bullet.instantiate()
 
 		if rightArmRayCast.is_colliding():
 			var rightBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(rightBulletImpact)
 			rightBulletImpact.global_position = rightArmRayCast.get_collision_point()
 			rightBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
+			rightBullet.fire(rightArmRayCast.get_collision_point() - rightMuzzleFlare.global_position)
 
 			var rightHitNode := rightArmRayCast.get_collider() as Enemy
 			if rightHitNode and rightHitNode.has_method("hit"):
 				rightHitNode.hit()
+		else:
+			rightBullet.fire(Vector3(50.0, 50.0, 50.0))
+
+		add_sibling(rightBullet)
+		rightBullet.global_position = rightMuzzleFlare.global_position
+		rightBullet.global_rotation = bodyMesh.global_rotation
 
 func _on_game_manager_start_game() -> void:
 	playing = true
@@ -158,6 +177,10 @@ func _on_game_manager_start_game() -> void:
 
 func _on_game_manager_game_over() -> void:
 	playing = false
+	leftMuzzleFlare.visible = false
+	rightMuzzleFlare.visible = false
+	leftArmBulletCasings.emitting = false
+	rightArmBulletCasings.emitting = false
 
 
 func _on_hitbox_body_entered(body: Node3D) -> void:

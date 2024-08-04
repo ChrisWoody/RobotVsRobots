@@ -1,18 +1,54 @@
-[gd_scene load_steps=9 format=3 uid="uid://07mypjfh6cpx"]
+[gd_scene load_steps=13 format=3 uid="uid://07mypjfh6cpx"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mmm4p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_owad5"]
 size = Vector3(0.891479, 1, 0.821777)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtcey"]
+albedo_color = Color(0.517184, 0.517184, 0.517184, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_26wad"]
+material = SubResource("StandardMaterial3D_xtcey")
 size = Vector3(1, 0.25, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_liufr"]
+material = SubResource("StandardMaterial3D_xtcey")
 size = Vector3(0.9, 1, 0.8)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_molj6"]
+albedo_color = Color(0, 0.366688, 0.106619, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_cdvq5"]
+material = SubResource("StandardMaterial3D_molj6")
 size = Vector3(0.15, 0.15, 0.53)
+
+[sub_resource type="Animation" id="Animation_cv3e6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.266582, 0.217147, -0.517237)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightArm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.267, 0.217505, -0.254333)]
+}
 
 [sub_resource type="Animation" id="Animation_ejfnt"]
 resource_name = "enemy_arm"
@@ -42,38 +78,20 @@ tracks/1/keys = {
 "values": [Vector3(-0.267, 0.218, -0.136), Vector3(-0.267, 0.218, -0.517), Vector3(-0.267, 0.218, -0.136)]
 }
 
-[sub_resource type="Animation" id="Animation_cv3e6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftArm:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.266582, 0.217147, -0.517237)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightArm:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.267, 0.217505, -0.254333)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ip7fy"]
 _data = {
 "RESET": SubResource("Animation_cv3e6"),
 "enemy_arm": SubResource("Animation_ejfnt")
 }
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgjlh"]
+albedo_color = Color(0, 0.697836, 0.198935, 1)
+emission_enabled = true
+emission = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lknix"]
+material = SubResource("StandardMaterial3D_hgjlh")
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Enemy" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562569, 0)
@@ -108,3 +126,7 @@ libraries = {
 "": SubResource("AnimationLibrary_ip7fy")
 }
 autoplay = "enemy_arm"
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497298, -0.198099)
+mesh = SubResource("BoxMesh_lknix")
