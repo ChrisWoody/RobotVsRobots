@@ -5,22 +5,22 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_owad5"]
 size = Vector3(0.891479, 1, 0.821777)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtcey"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbpfs"]
 albedo_color = Color(0.517184, 0.517184, 0.517184, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_26wad"]
-material = SubResource("StandardMaterial3D_xtcey")
+material = SubResource("StandardMaterial3D_tbpfs")
 size = Vector3(1, 0.25, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_liufr"]
-material = SubResource("StandardMaterial3D_xtcey")
+material = SubResource("StandardMaterial3D_tbpfs")
 size = Vector3(0.9, 1, 0.8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_molj6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvweu"]
 albedo_color = Color(0, 0.366688, 0.106619, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cdvq5"]
-material = SubResource("StandardMaterial3D_molj6")
+material = SubResource("StandardMaterial3D_hvweu")
 size = Vector3(0.15, 0.15, 0.53)
 
 [sub_resource type="Animation" id="Animation_cv3e6"]
@@ -84,13 +84,13 @@ _data = {
 "enemy_arm": SubResource("Animation_ejfnt")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgjlh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8w0k"]
 albedo_color = Color(0, 0.697836, 0.198935, 1)
 emission_enabled = true
 emission = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lknix"]
-material = SubResource("StandardMaterial3D_hgjlh")
+material = SubResource("StandardMaterial3D_f8w0k")
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Enemy" type="RigidBody3D"]

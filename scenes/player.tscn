@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://3wab2t2musnw"]
+[gd_scene load_steps=19 format=3 uid="uid://3wab2t2musnw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_d3567"]
 [ext_resource type="PackedScene" uid="uid://bi762w2hvhikg" path="res://scenes/bullet_trail.tscn" id="2_6aidt"]
@@ -33,7 +33,11 @@ albedo_color = Color(0.61339, 0.61339, 0.61339, 1)
 material = SubResource("StandardMaterial3D_44hky")
 size = Vector3(0.05, 0.05, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huanf"]
+albedo_color = Color(0.488443, 0.487575, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_3ba0r"]
+material = SubResource("StandardMaterial3D_huanf")
 size = Vector3(0.1, 0.1, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l65cl"]
@@ -126,6 +130,8 @@ initial_velocity_max = 0.5
 [node name="RightArmBulletCasings" type="CPUParticles3D" parent="Body"]
 transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 1, -0.565375, 0.22327, -0.000330999)
 emitting = false
+amount = 4
+lifetime = 0.5
 mesh = SubResource("BoxMesh_3ba0r")
 gravity = Vector3(-10, -20, 0)
 initial_velocity_max = 0.5

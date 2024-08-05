@@ -41,9 +41,10 @@ func hit() -> void:
 		gameManager.game_over.connect(enemyDeathInstance._on_game_manager_game_over)
 
 		enemyDeathInstance.global_position = global_position
-		var asd := enemyDeathInstance.find_children("", "RigidBody3D")
-		for box in asd:
-			box.linear_velocity = -basis.z.normalized() * 10.0
+		enemyDeathInstance.global_rotation = global_rotation
+		var rigidBodies := enemyDeathInstance.find_children("", "RigidBody3D")
+		for box in rigidBodies:
+			box.linear_velocity = -basis.z.normalized() * (7.0 + (randf() * 5))
 		enemy_death.emit()
 		queue_free()
 
