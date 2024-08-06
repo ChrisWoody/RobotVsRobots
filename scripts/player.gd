@@ -139,7 +139,9 @@ func shoot(delta: float):
 			var leftBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(leftBulletImpact)
 			leftBulletImpact.global_position = leftArmRayCast.get_collision_point()
-			leftBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
+			var dirPos := -leftBulletImpact.global_position.direction_to(leftArmRayCast.global_position)
+			var newBasis := Basis.looking_at(dirPos);
+			leftBulletImpact.basis = newBasis
 			leftBullet.fire(leftArmRayCast.get_collision_point() - leftMuzzleFlare.global_position)
 
 			var leftHitNode := leftArmRayCast.get_collider() as Enemy
@@ -158,7 +160,9 @@ func shoot(delta: float):
 			var rightBulletImpact: BulletImpact = bulletImpact.instantiate()
 			add_sibling(rightBulletImpact)
 			rightBulletImpact.global_position = rightArmRayCast.get_collision_point()
-			rightBulletImpact.global_rotation = Vector3(randf() * 180, randf() * 180, randf() * 180)
+			var dirPos := -rightBulletImpact.global_position.direction_to(rightArmRayCast.global_position)
+			var newBasis := Basis.looking_at(dirPos);
+			rightBulletImpact.basis = newBasis
 			rightBullet.fire(rightArmRayCast.get_collision_point() - rightMuzzleFlare.global_position)
 
 			var rightHitNode := rightArmRayCast.get_collider() as Enemy

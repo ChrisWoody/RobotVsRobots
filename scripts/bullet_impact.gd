@@ -2,8 +2,8 @@ class_name BulletImpact extends MeshInstance3D
 
 @onready var particles: CPUParticles3D = $Particles
 
-const TIMEOUT = 0.4
-const QUEUE_TIMEOUT = 0.8
+const TIMEOUT = 0.1
+const QUEUE_TIMEOUT = 0.2
 var elapsed := 0.0
 var originalScale: Vector3
 
