@@ -3,6 +3,7 @@ class_name Enemy extends RigidBody3D
 @export var player_path: NodePath
 @onready var player := get_node("../Player")
 @onready var gameManager: GameManager = get_node("../GameManager")
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
 signal enemy_death
 
@@ -55,12 +56,14 @@ func spawn(newPosition: Vector3, enemyDeathThing: PackedScene) -> void:
 	visible = true
 	sleeping = false
 	alive = true
+	animationPlayer.active = true
 
 func _on_game_manager_start_game() -> void:
 	queue_free()
 
 func _on_game_manager_game_over() -> void:
 	alive = false
+	animationPlayer.active = false
 
 # func reset_and_hide() -> void:
 # 	health = ORIGINAL_HEALTH

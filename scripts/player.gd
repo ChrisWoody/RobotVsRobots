@@ -98,7 +98,9 @@ func _physics_process(delta: float) -> void:
 	rightArmBulletCasings.emitting = false
 
 	if aimed:
-		bodyMesh.rotation_degrees = Vector3(0.0, bodyRotation, 0.0)
+		var newBodyY := computeAndClampRotationY(bodyMesh.rotation_degrees.y, bodyRotation, delta, 200.0)
+		bodyMesh.rotation_degrees = Vector3(0.0, newBodyY, 0.0)
+
 		shoot(delta)
 		leftArmBarrels.rotate(Vector3.BACK, -360 * delta)
 		rightArmBarrels.rotate(Vector3.BACK, 360 * delta)
@@ -108,7 +110,8 @@ func _physics_process(delta: float) -> void:
 	if dir != Vector3.ZERO:
 		velocity.x = dir.x * SPEED
 		velocity.z = dir.z * SPEED
-		base.rotation_degrees = Vector3(0.0, baseRotation, 0.0)
+		var newBaseY := computeAndClampRotationY(base.rotation_degrees.y, baseRotation, delta, 400.0)
+		base.rotation_degrees = Vector3(0.0, newBaseY, 0.0)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
@@ -119,6 +122,15 @@ func _physics_process(delta: float) -> void:
 		gunLightElapsed = 0.0
 
 	move_and_slide()
+
+func computeAndClampRotationY(currentY: float, inputY: float, delta: float, speed: float) -> float:
+	var rotateDir := 1.0 if abs(currentY - inputY) < 180.0 else -1.0
+	var newY := move_toward(currentY, inputY, delta * speed * rotateDir)
+	if newY < -180.0:
+		newY += 360.0
+	elif newY > 180.0:
+		newY -= 360.0
+	return newY
 
 func shoot(delta: float):
 	fireElapsed += delta
