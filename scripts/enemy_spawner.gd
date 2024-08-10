@@ -8,7 +8,7 @@ extends Path3D
 
 signal enemy_destroyed(count: int)
 
-const SPAWN_TIMEOUT := 2.0
+var spawnTimeout := 2.0
 var spawnElapsed := 0.0
 
 var totalEnemiesDestroyed := 0
@@ -23,9 +23,18 @@ func _process(delta: float) -> void:
 
 	spawnElapsed += delta
 
-	if spawnElapsed >= SPAWN_TIMEOUT:
+	if spawnElapsed >= spawnTimeout:
 		spawnElapsed = 0.0
-		if currentEnemyCount >= TOTAL_ENEMY_COUNT:
+		if totalEnemiesDestroyed >= 100:
+			if currentEnemyCount >= 40:
+				return
+		elif totalEnemiesDestroyed >= 50:
+			if currentEnemyCount >= 30:
+				return
+		elif totalEnemiesDestroyed >= 30:
+			if currentEnemyCount >= 20:
+				return
+		elif currentEnemyCount >= 10:
 			return
 
 		var enemyInstance: Enemy = enemyScene.instantiate()
@@ -37,16 +46,22 @@ func _process(delta: float) -> void:
 		enemyInstance.spawn(pathFollower.global_position, enemyDeath)
 		currentEnemyCount += 1
 
-# is this being called more than it should? Might be a timing/concurrency issue?
 func on_enemy_death() -> void:
 	currentEnemyCount -= 1
 	totalEnemiesDestroyed += 1
+	if totalEnemiesDestroyed >= 50:
+		spawnTimeout = 0.75
+	elif totalEnemiesDestroyed >= 30:
+		spawnTimeout = 1.25
+	else:
+		spawnTimeout = 2.0
 	enemy_destroyed.emit(totalEnemiesDestroyed)
 
 func _on_game_manager_start_game() -> void:
 	currentEnemyCount = 0
 	spawnElapsed = 0.0
 	totalEnemiesDestroyed = 0
+	spawnTimeout = 2.0
 	playing = true
 
 func _on_game_manager_game_over() -> void:

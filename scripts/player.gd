@@ -30,6 +30,8 @@ signal player_hit
 @onready var leftMuzzleFlare: MeshInstance3D = $Body/LeftMuzzleFlare
 @onready var rightMuzzleFlare: MeshInstance3D = $Body/RightMuzzleFlare
 
+@onready var audioStreamPlayer: AudioStreamPlayer = $AudioStreamPlayer
+
 var playing := false
 
 func _ready() -> void:
@@ -98,7 +100,7 @@ func _physics_process(delta: float) -> void:
 	rightArmBulletCasings.emitting = false
 
 	if aimed:
-		var newBodyY := computeAndClampRotationY(bodyMesh.rotation_degrees.y, bodyRotation, delta, 200.0)
+		var newBodyY := computeAndClampRotationY(bodyMesh.rotation_degrees.y, bodyRotation, delta, 240.0)
 		bodyMesh.rotation_degrees = Vector3(0.0, newBodyY, 0.0)
 
 		shoot(delta)
@@ -138,6 +140,8 @@ func shoot(delta: float):
 	if fireElapsed >= FIRE_TIMEOUT:
 		gunLightElapsed = GUN_LIGHT_TIMEOUT
 		fireElapsed = 0.0
+
+		#audioStreamPlayer.play()
 
 		leftMuzzleFlare.visible = true
 		rightMuzzleFlare.visible = true
