@@ -4,19 +4,36 @@ jobs:
   build-export:
     runs-on: windows-latest
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Download Godot
         run: |
           Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip" -OutFile godot.zip
           Expand-Archive .\godot.zip
           & .\godot\Godot_v4.3-dev6_win64_console.exe --version
+
       - name: Build Windows
         run: |
+          $ErrorActionPreference = "Continue"
           mkdir .\build\windows
-          & .\godot\Godot_v4.3-dev6_win64_console.exe --verbose --export-release "Windows Desktop" ..\build\windows\RobotVsRobots.exe
-      - name: Upload Artifact
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" ..\build\windows\RobotVsRobots.exe
+
+      - name: Upload Windows
         uses: actions/upload-artifact@v4
         with:
           name: windows
           path: build/windows
+
+      - name: Build Web
+        run: |
+          $ErrorActionPreference = "Continue"
+          mkdir .\build\web
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Web" ..\build\web\index.html
+
+      - name: Upload Web
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: build/web
