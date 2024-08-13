@@ -4,7 +4,16 @@ jobs:
   build-export:
     runs-on: windows-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - run: |
           Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip" -OutFile godot.zip
           Expand-Archive .\godot.zip
           & .\godot\Godot_v4.3-dev6_win64_console.exe --version
+          mkdir -v -p .\build\windows
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" ..\build\windows/RobotVsRobots.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: build/windows
