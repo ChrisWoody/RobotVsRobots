@@ -46,7 +46,7 @@ jobs:
           & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Web" .\build\web\index.html
 
       - name: Upload Web for github pages
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           name: RobotVsRobotsWeb
           path: build/web
