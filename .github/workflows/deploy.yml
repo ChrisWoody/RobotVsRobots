@@ -14,7 +14,7 @@ jobs:
       - name: Build Windows
         run: |
           mkdir .\build\windows
-          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" ..\build\windows/RobotVsRobots.exe
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --verbose --export-release "Windows Desktop" ..\build\windows\RobotVsRobots.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
