@@ -5,6 +5,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - run: |
-        Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip -OutFile godot.zip
-        Expand-Archive .\godot.zip
-        & .\godot\Godot_v4.3-dev6_win64_console.exe --version
+          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip" -OutFile godot.zip
+          Expand-Archive .\godot.zip
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --version
