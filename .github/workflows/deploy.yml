@@ -31,7 +31,6 @@ jobs:
 
       - name: Build Windows
         run: |
-          $ErrorActionPreference = "Continue"
           mkdir .\build\windows
           & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" .\build\windows\RobotVsRobots.exe
 
@@ -43,12 +42,11 @@ jobs:
 
       - name: Build Web
         run: |
-          $ErrorActionPreference = "Continue"
           mkdir .\build\web
           & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Web" .\build\web\index.html
 
-      - name: Upload Web
-        uses: actions/upload-artifact@v4
+      - name: Upload Web for github pages
+        uses: actions/upload-pages-artifact@v1
         with:
           name: RobotVsRobotsWeb
           path: build/web
