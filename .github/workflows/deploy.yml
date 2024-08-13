@@ -27,7 +27,7 @@ jobs:
       - name: Upload Windows
         uses: actions/upload-artifact@v4
         with:
-          name: windows
+          name: RobotVsRobotsWindows
           path: build/windows
 
       - name: Build Web
@@ -39,5 +39,10 @@ jobs:
       - name: Upload Web
         uses: actions/upload-artifact@v4
         with:
-          name: web
+          name: RobotVsRobotsWeb
           path: build/web
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: RobotVsRobotsWeb
