@@ -13,6 +13,10 @@ jobs:
           Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip" -OutFile godot.zip
           Expand-Archive .\godot.zip
           & .\godot\Godot_v4.3-dev6_win64_console.exe --version
+          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_export_templates.tpz" -OutFile templates.zip
+          Expand-Archive .\templates.zip C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/
+          rename C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/templates 4.3.dev6
+          ls -r C:/Users/runneradmin/AppData/Roaming/Godot/export_templates
 
       - name: Build Windows
         run: |
