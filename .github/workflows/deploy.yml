@@ -47,7 +47,7 @@ jobs:
       - name: Upload Windows
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.GameName }}-Windows
+          name: ${{ env.GameName }}-Win
           path: build/windows
 
       - name: Build Web

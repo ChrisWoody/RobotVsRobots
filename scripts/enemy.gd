@@ -18,9 +18,6 @@ var speed := 0.0
 const ORIGINAL_HEALTH := 10
 var health := ORIGINAL_HEALTH
 
-# func _ready() -> void:
-# 	reset_and_hide()
-
 func _physics_process(delta: float) -> void:
 	if not alive:
 		return
@@ -64,8 +61,3 @@ func _on_game_manager_start_game() -> void:
 func _on_game_manager_game_over() -> void:
 	alive = false
 	animationPlayer.active = false
-
-# func reset_and_hide() -> void:
-# 	health = ORIGINAL_HEALTH
-# 	visible = false
-# 	sleeping = true

@@ -6,20 +6,12 @@ extends CanvasLayer
 @onready var endGameLabel: Label = $EndGameLabel
 @onready var endGameLayer: ColorRect = $EndGameLayer
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	startGameLabel.visible = true
 	startGameLayer.visible = true
 	enemiesDestroyedLabel.visible = false
 	endGameLabel.visible = false
 	endGameLayer.visible = false
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 func _on_enemy_spawner_enemy_destroyed(count: int) -> void:
 	enemiesDestroyedLabel.text = "Enemies destroyed: " + str(count)

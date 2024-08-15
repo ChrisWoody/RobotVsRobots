@@ -2,9 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://3wab2t2musnw" path="res://scenes/player.tscn" id="1_hnb7c"]
 [ext_resource type="Texture2D" uid="uid://c8c2vgbs4xbji" path="res://assests/floor_01.png" id="2_3g4q0"]
-[ext_resource type="Texture2D" uid="uid://kbr8rr8ucrxe" path="res://assests/SciFiFloor/Sci-fi_Floor_001_ambientOcclusion.jpg" id="3_kk0dk"]
-[ext_resource type="Texture2D" uid="uid://dgmbwvd1mspk6" path="res://assests/SciFiFloor/Sci-fi_Floor_001_emission.jpg" id="4_nqdan"]
-[ext_resource type="Texture2D" uid="uid://b48fx73cy3fen" path="res://assests/SciFiFloor/Sci-fi_Floor_001_normal.jpg" id="7_4kygc"]
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="7_rvcpe"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="8_lhdl2"]
 [ext_resource type="PackedScene" uid="uid://c5vqfp67661vl" path="res://scenes/enemy_death.tscn" id="8_n6hbi"]
@@ -15,11 +12,20 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvwio"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6ka34"]
+load_path = "res://.godot/imported/Sci-fi_Floor_001_ambientOcclusion.jpg-d2b311c1e004c69eea8aebd11b814895.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sixqv"]
+load_path = "res://.godot/imported/Sci-fi_Floor_001_emission.jpg-20f55547cdb29585583b5e6d264fc3ac.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3s57w"]
+load_path = "res://.godot/imported/Sci-fi_Floor_001_normal.jpg-840264f62ab18e384068eb7a4ba177e2.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5qfs"]
 albedo_texture = ExtResource("2_3g4q0")
-emission_texture = ExtResource("4_nqdan")
-normal_texture = ExtResource("7_4kygc")
-ao_texture = ExtResource("3_kk0dk")
+emission_texture = SubResource("CompressedTexture2D_sixqv")
+normal_texture = SubResource("CompressedTexture2D_3s57w")
+ao_texture = SubResource("CompressedTexture2D_6ka34")
 heightmap_enabled = true
 uv1_scale = Vector3(40, 40, 40)
 
