@@ -37,7 +37,7 @@ jobs:
           Invoke-WebRequest "https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe" -OutFile C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe
           & .\godot\Godot_v4.3-dev6_win64_console.exe -v -e --quit --headless
           $configFile = "C:/Users/runneradmin/AppData/Roaming/Godot/editor_settings-4.3.tres"
-          (Get-Content $configFile) -replace 'export/windows/rcedit = ""', 'export/windows/rcedit = "C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe"' | Set-Content $file
+          (Get-Content $configFile) -replace 'export/windows/rcedit = ""', 'export/windows/rcedit = "C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe"' | Set-Content $configFile
 
       - name: Build Windows
         run: |
