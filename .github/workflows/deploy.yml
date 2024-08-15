@@ -68,11 +68,10 @@ jobs:
 
       - name: Compress for Release
         run: |
-          Compress-Archive -Path .\build\windows -DestinationPath .\${{ env.GameName }}-Windows.zip
           Compress-Archive -Path .\build\web -DestinationPath .\${{ env.GameName }}-Web.zip
-        
+
       - name: Publish Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.BuilVersion }}
-          artifacts: "${{ env.GameName }}-Windows.zip,${{ env.GameName }}-Web.zip"
+          artifacts: "./build/windows/${{ env.GameName }}.exe,${{ env.GameName }}-Web.zip"
