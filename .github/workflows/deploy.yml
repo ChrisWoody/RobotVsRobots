@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  GameName: RobotVsRobots
+  BuilVersion: "0.${{ github.run_number}}.0"
+
 jobs:
   build-export:
     runs-on: windows-latest
@@ -32,12 +36,12 @@ jobs:
       - name: Build Windows
         run: |
           mkdir .\build\windows
-          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" .\build\windows\RobotVsRobots.exe
+          & .\godot\Godot_v4.3-dev6_win64_console.exe --headless --verbose --export-release "Windows Desktop" .\build\windows\${{ env.GameName }}.exe
 
       - name: Upload Windows
         uses: actions/upload-artifact@v4
         with:
-          name: RobotVsRobotsWindows
+          name: ${{ env.GameName }}-Windows
           path: build/windows
 
       - name: Build Web
@@ -48,10 +52,21 @@ jobs:
       - name: Upload Web for github pages
         uses: actions/upload-pages-artifact@v3
         with:
-          name: RobotVsRobotsWeb
+          name: ${{ env.GameName }}-Web
           path: build/web
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: RobotVsRobotsWeb
+          artifact_name: ${{ env.GameName }}-Web
+
+      - name: Compress for Release
+        run: |
+          Compress-Archive -Path .\build\windows -DestinationPath .\${{ env.GameName }}-Windows.zip
+          Compress-Archive -Path .\build\web -DestinationPath .\${{ env.GameName }}-Web.zip
+        
+      - name: Publish Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.BuilVersion }}
+          artifacts: "${{ env.GameName }}-Windows.zip,${{ env.GameName }}-Web.zip"
