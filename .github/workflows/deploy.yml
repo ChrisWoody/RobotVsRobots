@@ -28,10 +28,16 @@ jobs:
           Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_win64.exe.zip" -OutFile godot.zip
           Expand-Archive .\godot.zip
           & .\godot\Godot_v4.3-dev6_win64_console.exe --version
+          
           Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-dev6/Godot_v4.3-dev6_export_templates.tpz" -OutFile templates.zip
           Expand-Archive .\templates.zip C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/
           Rename-Item C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/templates 4.3.dev6
           ls -r C:/Users/runneradmin/AppData/Roaming/Godot/export_templates
+
+          Invoke-WebRequest "https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe" -OutFile C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe
+          & .\godot\Godot_v4.3-dev6_win64_console.exe -v -e --quit --headless
+          $configFile = "C:/Users/runneradmin/AppData/Roaming/Godot/editor_settings-4.3.tres"
+          (Get-Content $configFile) -replace 'export/windows/rcedit = ""', 'export/windows/rcedit = "C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe"' | Set-Content $file
 
       - name: Build Windows
         run: |
