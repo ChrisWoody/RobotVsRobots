@@ -25,24 +25,24 @@ jobs:
 
       - name: Download Godot
         run: |
-          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-rc3/Godot_v4.3-rc3_win64.exe.zip" -OutFile godot.zip
+          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip" -OutFile godot.zip
           Expand-Archive .\godot.zip
-          & .\godot\Godot_v4.3-rc3_win64_console.exe --version
+          & .\godot\Godot_v4.3-stable_win64_console.exe --version
           
-          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-rc3/Godot_v4.3-rc3_export_templates.tpz" -OutFile templates.zip
+          Invoke-WebRequest "https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz" -OutFile templates.zip
           Expand-Archive .\templates.zip C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/
-          Rename-Item C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/templates 4.3.rc3
+          Rename-Item C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/templates 4.3.stable
           ls -r C:/Users/runneradmin/AppData/Roaming/Godot/export_templates
 
           Invoke-WebRequest "https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe" -OutFile C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe
-          & .\godot\Godot_v4.3-rc3_win64_console.exe -v -e --quit --headless
+          & .\godot\Godot_v4.3-stable_win64_console.exe -v -e --quit --headless
           $configFile = "C:/Users/runneradmin/AppData/Roaming/Godot/editor_settings-4.3.tres"
           (Get-Content $configFile) -replace 'export/windows/rcedit = ""', 'export/windows/rcedit = "C:/Users/runneradmin/AppData/Roaming/Godot/rcedit.exe"' | Set-Content $configFile
 
       - name: Build Windows
         run: |
           mkdir .\build\windows
-          & .\godot\Godot_v4.3-rc3_win64_console.exe --headless --verbose --export-release "Windows Desktop" .\build\windows\${{ env.GameName }}-Win.exe
+          & .\godot\Godot_v4.3-stable_win64_console.exe --headless --verbose --export-release "Windows Desktop" .\build\windows\${{ env.GameName }}-Win.exe
 
       - name: Upload Windows
         uses: actions/upload-artifact@v4
@@ -53,7 +53,7 @@ jobs:
       - name: Build Web
         run: |
           mkdir .\build\web
-          & .\godot\Godot_v4.3-rc3_win64_console.exe --headless --verbose --export-release "Web" .\build\web\index.html
+          & .\godot\Godot_v4.3-stable_win64_console.exe --headless --verbose --export-release "Web" .\build\web\index.html
 
       - name: Upload Web for github pages
         uses: actions/upload-pages-artifact@v3
